@@ -24,7 +24,7 @@ jobs:
                 mkdir ~/secrets
                 cat << EOF > ~/secrets/appstoreconnect-fastlane.json
                 {
-                    "issuer_id": "this is a secret",
+                    "issuer_id": "1qqgdy78werfiu",
                     "key_id": "6TV9MKN3GP",
                     "key": "$(gsed -E ':a;N;$!ba;s/\r{0,1}\n/\\n/g' ~/private_keys/AuthKey_6TV9MKN3GP.p8)"
                 }
