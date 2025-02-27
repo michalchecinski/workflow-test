@@ -16,9 +16,11 @@ jobs:
                 ${{ secrets.APP_STORE_CONNECT_AUTH_KEY }}
                 EOF
 
+          - name: Install gsed
+            run: brew install gsed
+
           - name: Create secrets for Fastlane
             run: |
-                brew install gsed
                 mkdir ~/secrets
                 cat << EOF > ~/secrets/appstoreconnect-fastlane.json
                 {
@@ -27,3 +29,6 @@ jobs:
                     "key": "$(gsed -E ':a;N;$!ba;s/\r{0,1}\n/\\n/g' ~/private_keys/AuthKey_6TV9MKN3GP.p8)"
                 }
                 EOF
+
+          - name: Get file
+            run: cat ~/secrets/appstoreconnect-fastlane.json
