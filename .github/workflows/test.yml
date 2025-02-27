@@ -1,0 +1,26 @@
+name: test
+
+on:
+    workflow_dispatch:
+
+jobs:
+    test:
+        name: test
+        runs-on: macos-13
+        steps:
+          - name: Set up private auth key
+            run: |
+                mkdir ~/private_keys
+                cat << EOF > ~/private_keys/AuthKey_6TV9MKN3GP.p8
+                ${{ secrets.APP_STORE_CONNECT_AUTH_KEY }}
+                EOF
+
+          - name: Create secrets for Fastlane
+            run: |
+                cat << EOF > ~/secrets/appstoreconnect-fastlane.json
+                {
+                    "issuer_id": "test",
+                    "key_id": "6TV9MKN3GP",
+                    "key": "$(sed -E ':a;N;$!ba;s/\r{0,1}\n/\\n/g' ~/private_keys/AuthKey_6TV9MKN3GP.p8)"
+                }
+                EOF
