@@ -16,6 +16,8 @@ jobs:
 
           - name: Get latest pre-release name
             id: get_latest_prerelease
+            env:
+              GITHUB_TOKEN: ${{ github.token }}
             run: |
               latest_release=$(gh release list --json name,tagName,isDraft,isPrerelease -L 1)
               is_latest_prerelease=$(jq -r '.isPrerelease' <<< $latest_release)
@@ -33,5 +35,6 @@ jobs:
             id: make_release
             env:
               TAG: ${{ steps.get_latest_prerelease.outputs.latest_prerelease_version }}
+              GH_TOKEN: ${{ github.token }}
             run: |
               gh release edit $TAG --latest
