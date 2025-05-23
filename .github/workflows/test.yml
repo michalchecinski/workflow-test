@@ -46,7 +46,7 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          workflow_name="$(basename $GITHUB_WORKFLOW)"
+          workflow_name="test.yml"
 
           # Get the last successful scheduled run ID
           previous_run_id=$(gh run list --workflow=$workflow_name --event=schedule --status=success --limit 1 --json databaseId --jq '.[0].databaseId // empty')
