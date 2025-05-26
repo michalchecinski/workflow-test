@@ -50,7 +50,7 @@ jobs:
           workflow_name="test.yml"
 
           # Get the last successful scheduled run ID
-          previous_run_id=$(gh run list --workflow=$workflow_name --status=success --limit 1 --json databaseId --jq '.[0].databaseId // empty')
+          previous_run_id=$(gh run list --workflow=$workflow_name  --status=success --limit 1 --json databaseId --jq '.[0].databaseId // empty')
 
           if [ -n "$previous_run_id" ] && [ "$previous_run_id" != "null" ]; then
             echo "Found previous successful scheduled run: $previous_run_id"
@@ -190,7 +190,7 @@ jobs:
           if [ "${{ steps.check_already_processed.outputs.should_skip }}" == "true" ]; then
             initial_state="draft"
             changed_to_state="none"
-          elif [ "${{ steps.get_latest_draft.outputs.is_latest_draft }}" == "true" && "${{ steps.check_already_processed.outputs.should_skip }}" == "false" ]; then
+          elif [ "${{ steps.get_latest_draft.outputs.is_latest_draft }}" == "true" ] && [ "${{ steps.check_already_processed.outputs.should_skip }}" == "false" ]; then
             initial_state="draft"
             if [ "${{ steps.check_version.outputs.version_released }}" == "true" ]; then
               changed_to_state="published"
