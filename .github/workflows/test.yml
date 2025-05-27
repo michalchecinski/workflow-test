@@ -91,7 +91,7 @@ jobs:
             echo "previous_timestamp=$previous_timestamp" >> $GITHUB_OUTPUT
             echo "has_previous_state=true" >> $GITHUB_OUTPUT
 
-            echo "Previous run processed: $previous_release_tag (changed to: $previous_changed_to at $previous_timestamp)"
+            echo "Previous run processed: $previous_release_tag (changed from: $previous_initial_state to: $previous_changed_to)"
           else
             echo "⚠️ No valid release-info.json found in previous artifact"
             echo "has_previous_state=false" >> $GITHUB_OUTPUT
